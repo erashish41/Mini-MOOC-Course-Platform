@@ -13,7 +13,7 @@ from course.serializers import (
 # Create your views here.
 
 
-class CourseView(viewsets.ModelViewSet):
+class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
     permission_classes = [permissions.AllowAny]
@@ -26,6 +26,14 @@ def enroll_course(self,request,pk=None):
         course=course
     )
     return Response({"message":"Enrolled"})
+
+
+class MyCourseViewSet(viewsets.ModelViewSet):
+    serializer_class = CourseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return Course.objects.filter(enrollments__user=self.request.user)
     
     
 class LessonProgressViewSet(viewsets.ViewSet):

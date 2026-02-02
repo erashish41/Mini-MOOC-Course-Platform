@@ -2,11 +2,11 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from course.views import (
-    CourseView, LessonProgressViewSet
+    CourseViewSet, LessonProgressViewSet
 )
 
 router = DefaultRouter()
-router.register("courses", CourseView, basename="courses")
+router.register("courses", CourseViewSet, basename="courses")
 router.register("my-courses", LessonProgressViewSet, basename="my-courses")
 
 
